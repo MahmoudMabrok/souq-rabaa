@@ -25,12 +25,14 @@ button{font-family:inherit;font-weight:800;border:0;border-radius:10px;padding:1
 .sec-title.p{background:#6a1b9a}
 .tpls,.price-tpls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .tpl{border:2px solid #333;border-radius:10px;overflow:hidden;cursor:pointer;background:#222}
-.tpl.on{border-color:#ff9800}.tpl span{display:block;padding:4px 6px;font-size:11px;font-weight:800}
+.tpl.on{border-color:#ff9800}.tpl img{width:100%;height:72px;object-fit:cover;display:block}
+.tpl span{display:block;padding:4px 6px;font-size:11px;font-weight:800}
 .thumb{height:72px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#111}
 .preview-wrap{padding:20px;background:#2b2b2b;overflow:auto}
 .toolbar{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
 #flyer{width:1080px;margin:0 auto;background:linear-gradient(#fff6d9,#ffe8b0);color:#222;overflow:hidden;position:relative;box-shadow:0 20px 60px #0007}
 .header{position:relative;height:420px;overflow:hidden}
+.header-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .tpl-classic .header{background:linear-gradient(180deg,rgba(0,0,0,.12),transparent 40%,#fff6d9 100%),radial-gradient(ellipse at 20% 40%,#ffcc80,transparent 50%),#ffecb3}
 .tpl-masry .header{background:linear-gradient(#e8c27a,#c48a4a)}
 .tpl-night .header{background:radial-gradient(circle at 70% 20%,#30465f,#0d1b2a)}
@@ -55,25 +57,32 @@ button{font-family:inherit;font-weight:800;border:0;border-radius:10px;padding:1
 .bar{margin:14px 24px 10px;text-align:center;padding:8px 16px;border-radius:30px;color:#fff;font-weight:900;font-size:26px}
 .bar.green{background:linear-gradient(#66bb6a,#2e7d32)}.bar.purple{background:linear-gradient(#ab47bc,#6a1b9a)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:8px 22px 18px}.grid.three{grid-template-columns:repeat(3,1fr)}
-.card{background:#fff;border:3px solid #c8e6c9;border-radius:16px;padding:8px;text-align:center;position:relative;min-height:168px}
-.card h3{font-size:18px;font-weight:800;margin-bottom:4px;color:#1b5e20}
-.pic{height:88px;border-radius:10px;background:linear-gradient(#f1f8e9,#fff);display:flex;align-items:center;justify-content:center;font-size:58px}
-.price{position:absolute;left:8px;bottom:8px;background:#ffd54f;border:2px solid #f9a825;border-radius:8px;min-width:58px;padding:2px 6px 4px;font-weight:900;color:#b71c1c;line-height:1.15;box-shadow:2px 2px 0 #ef6c00}
+.card{background:#fff;border:3px solid #c8e6c9;border-radius:18px;padding:10px 8px 12px;text-align:center;position:relative;min-height:196px;box-shadow:0 6px 0 #e8f5e9}
+.card h3{font-size:18px;font-weight:900;margin-bottom:6px;color:#1b5e20}
+.pic{height:110px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.prod{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:64px}
+.price{position:absolute;left:10px;bottom:10px;background:#ffd54f;border:2px solid #f9a825;border-radius:10px;min-width:62px;padding:3px 7px 5px;font-weight:900;color:#b71c1c;line-height:1.15;box-shadow:2px 3px 0 #ef6c00}
 .price .from,.price .to,.price .unit{font-size:11px;display:block}.price .num{font-size:22px;display:block}
 .footer{background:#5c3a1e;color:#ffe082;text-align:center;padding:10px;font-weight:700;font-size:14px}
 .tpl-night .footer{background:#0d1b2a;color:#ffd54f}.tpl-farm .footer{background:#1b5e20;color:#fff}
 .tpl-souq .footer{background:#bf360c;color:#fff}.tpl-minimal .footer{background:#111;color:#fff}.tpl-minimal .red-ribbon{clip-path:none;background:#111}
+.tpl-night .wood-plank{background:linear-gradient(#3d2b12,#1a1208);border-color:#ffd54f}
+.tpl-farm .wood-plank{background:linear-gradient(#66bb6a,#1b5e20);border-color:#0d3b12}
+.tpl-souq .wood-plank{background:linear-gradient(#ff7043,#bf360c);border-color:#7f1d00}
+.tpl-minimal .wood-plank{background:#fff;border:3px solid #111;border-radius:0;box-shadow:8px 8px 0 #111}
+.tpl-minimal .souq-word,.tpl-minimal .rabaa-word{color:#111;text-shadow:none}
 .plist{padding:8px 22px 18px}
 .layout-menu{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;background:#fffdf7;margin:0 22px 18px;padding:8px 18px;border-radius:12px}
-.menu-row{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dotted #c4a574}
-.menu-row .emo{font-size:32px;text-align:center}.menu-row .nm{font-weight:800;font-size:18px;color:#1b5e20}
+.menu-row{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dotted #c4a574}
+.menu-row .emo{width:64px;height:48px;border-radius:8px;overflow:hidden}.menu-row .prod{font-size:32px}
+.menu-row .nm{font-weight:800;font-size:18px;color:#1b5e20}
 .menu-row .pr{font-weight:900;color:#c62828;font-size:22px;text-align:left;min-width:90px}.menu-row .pr small{display:block;font-size:11px;color:#6d4c41;font-weight:700}
 .layout-tags{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .tag-card{background:#ffeb3b;border-radius:6px 6px 16px 16px;text-align:center;padding:18px 8px 0;box-shadow:0 10px 0 #9a0007;position:relative;min-height:198px;overflow:hidden}
 .tag-card::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:#2b2b2b}
 .tag-card:nth-child(even){background:#e53935;color:#fff}.tag-card:nth-child(even) h3{color:#fff}
 .tag-card:nth-child(odd) .tag-price-wrap{background:#e53935;color:#fff}.tag-card:nth-child(even) .tag-price-wrap{background:#ffeb3b;color:#111}
-.tag-card h3{font-size:22px;margin:16px 0 2px}.tag-card .emo{font-size:48px;display:block}
+.tag-card h3{font-size:22px;margin:16px 0 2px}.tag-card .emo{display:block;height:72px;margin:0 auto;width:88%;border-radius:10px;overflow:hidden}.tag-card .prod{font-size:48px}
 .tag-price-wrap{margin-top:10px;padding:10px 8px 14px}.tag-price{font-size:34px;font-weight:900;line-height:1}.tag-price small{display:block;font-size:12px;font-weight:700}
 .layout-table{width:calc(100% - 44px);margin:0 22px 18px;border-collapse:collapse;background:#fff}
 .layout-table th{background:#2e7d32;color:#fff;padding:8px}.layout-table.fruit th{background:#6a1b9a}
@@ -85,7 +94,7 @@ button{font-family:inherit;font-weight:800;border:0;border-radius:10px;padding:1
 <div class="app">
 <aside class="editor">
 <h1>سوق الرابعة</h1>
-<p class="hint">اسحب الهيدر فقط. عدّل الشريط والـ Footer والأسعار ثم صدّر صورة.</p>
+<p class="hint">اضغط قالب الهيدر وقالب الأسعار. صور الأصناف تظهر داخل الكروت.</p>
 <label>قوالب الهيدر</label><div class="tpls" id="tpls"></div>
 <label>قوالب عرض الأسعار</label><div class="price-tpls" id="priceTpls"></div>
 <label>عنوان السوق</label><input id="titleSouq" />
@@ -109,13 +118,14 @@ button{font-family:inherit;font-weight:800;border:0;border-radius:10px;padding:1
 <script>
 const TPLS=[{id:"classic",name:"الأصلي"},{id:"masry",name:"خشبي"},{id:"night",name:"ليلي"},{id:"farm",name:"مزرعة"},{id:"souq",name:"شعبي"},{id:"minimal",name:"مينيمال"}];
 const PRICE_TPLS=[{id:"cards",name:"كروت الأسعار"},{id:"menu",name:"قائمة سوبرماركت"},{id:"tags",name:"ملصقات كبيرة"},{id:"table",name:"جدول أسعار"}];
+const COLORS={"البطاطس":"#fff3e0","الطماطم":"#ffebee","الجزر":"#fff8e1","الباذنجان الحشو":"#f1f8e9","الباذنجان الأسود":"#f3e5f5","الفلفل":"#e8f5e9","الخيار":"#e8f5e9","الكوسة":"#f1f8e9","الليمون":"#fffde7","البطاطا (طين)":"#efebe9","بطاطا تصدير":"#fff8e1","الفراخ":"#fff3e0","الموز":"#fffde7","العنب":"#f3e5f5","المانجو":"#fff8e1","التين الشوكي":"#fce4ec","التين":"#ede7f6"};
 const DEFAULT_POS={date:{x:24,y:28},mega:{x:210,y:18},basket:{x:200,y:24},hang:{x:28,y:150},circle:{x:30,y:120},sign:{x:260,y:70}};
 const VEG=[{name:"البطاطس",min:"15",max:"20",emoji:"🥔"},{name:"الطماطم",min:"10",max:"15",emoji:"🍅"},{name:"الجزر",min:"10",max:"",emoji:"🥕"},{name:"الباذنجان الحشو",min:"10",max:"",emoji:"🥒"},{name:"الباذنجان الأسود",min:"10",max:"",emoji:"🍆"},{name:"الفلفل",min:"10",max:"15",emoji:"🫑"},{name:"الخيار",min:"10",max:"15",emoji:"🥒"},{name:"الكوسة",min:"20",max:"",emoji:"🥬"},{name:"الليمون",min:"15",max:"40",emoji:"🍋"},{name:"البطاطا (طين)",min:"15",max:"",emoji:"🍠"},{name:"بطاطا تصدير",min:"15",max:"",emoji:"🥔"}];
 const FRUIT=[{name:"الفراخ",min:"68",max:"70",emoji:"🐔"},{name:"الموز",min:"35",max:"",emoji:"🍌"},{name:"العنب",min:"35",max:"45",emoji:"🍇"},{name:"المانجو",min:"40",max:"50",emoji:"🥭"},{name:"التين الشوكي",min:"5",max:"",emoji:"🏵"},{name:"التين",min:"40",max:"",emoji:"🟤"}];
 function clone(o){return JSON.parse(JSON.stringify(o))}
 const DEFAULTS=()=>({template:"classic",priceLayout:"cards",titleSouq:"سوق",titleName:"الرابعة",ribbon:"لمتابعين صفحة بورصة السادات",footerText:"بورصة السادات — متوسط أسعار سوق الرابعة · للتحديث اليومي تابع الصفحة",dateText:"اليوم",circleText:"أكبر صفحة لأسعار السوق في مدينة السادات",hangText:"متابعة يومية لأفضل الأسعار والعروض",pos:clone(DEFAULT_POS),veg:clone(VEG),fruit:clone(FRUIT)});
 let state=DEFAULTS(),history=[];
-const LS="souq-rabaa-v5";
+const LS="souq-rabaa-v6";
 const FIELDS=["titleSouq","titleName","ribbon","footerText","dateText","circleText","hangText"];
 function snap(){history.push(JSON.stringify(state));if(history.length>30)history.shift()}
 function undo(){if(!history.length)return setStatus("لا يوجد تراجع");state=JSON.parse(history.pop());bind();render();setStatus("تم التراجع")}
@@ -136,11 +146,12 @@ state.fruit.forEach((p,i)=>{p.name=document.getElementById("f-n-"+i).value;p.min
 function editors(){const row=(list,pre)=>list.map((p,i)=>`<div class="row3"><input id="${pre}-n-${i}" value="${p.name}"/><input id="${pre}-min-${i}" value="${p.min}"/><input id="${pre}-max-${i}" value="${p.max}"/></div>`).join("");
 document.getElementById("vegEditor").innerHTML=row(state.veg,"v");document.getElementById("fruitEditor").innerHTML=row(state.fruit,"f");
 document.querySelectorAll(".editor input").forEach(inp=>{if(FIELDS.includes(inp.id))return;inp.addEventListener("input",()=>{collect();renderFlyer()})})}
+function productPic(p){return `<span class="prod" style="background:${COLORS[p.name]||"#f1f8e9"}">${p.emoji||"🛒"}</span>`}
 function priceHTML(p){if(p.max&&p.max!==p.min)return `<span class="from">من</span><span class="num">${p.min}</span><span class="to">إلى ${p.max}</span><span class="unit">جنيه</span>`;return `<span class="num">${p.min}</span><span class="unit">جنيه</span>`}
-function card(p){return `<article class="card"><h3>${p.name}</h3><div class="pic">${p.emoji}</div><div class="price">${priceHTML(p)}</div></article>`}
+function card(p){return `<article class="card"><h3>${p.name}</h3><div class="pic">${productPic(p)}</div><div class="price">${priceHTML(p)}</div></article>`}
 function rangeText(p){return(p.max&&p.max!==p.min)?`${p.min}–${p.max}`:(p.min||"—")}
-function menuRow(p){return `<div class="menu-row"><div class="emo">${p.emoji}</div><div class="nm">${p.name}</div><div class="pr">${rangeText(p)}<small>جنيه / كيلو</small></div></div>`}
-function tagCard(p){return `<div class="tag-card"><h3>${p.name}</h3><span class="emo">${p.emoji}</span><div class="tag-price-wrap"><div class="tag-price">${rangeText(p)}<small>جنيه / كيلو</small></div></div></div>`}
+function menuRow(p){return `<div class="menu-row"><div class="emo">${productPic(p)}</div><div class="nm">${p.name}</div><div class="pr">${rangeText(p)}<small>جنيه / كيلو</small></div></div>`}
+function tagCard(p){return `<div class="tag-card"><h3>${p.name}</h3><span class="emo">${productPic(p)}</span><div class="tag-price-wrap"><div class="tag-price">${rangeText(p)}<small>جنيه / كيلو</small></div></div></div>`}
 function tableBlock(list,cls){return `<table class="layout-table ${cls||""}"><thead><tr><th>الصنف</th><th>السعر</th></tr></thead><tbody>${list.map(p=>`<tr><td>${p.emoji} ${p.name}</td><td class="pr">${rangeText(p)} جنيه</td></tr>`).join("")}</tbody></table>`}
 function pricesHTML(list,three){const L=state.priceLayout||"cards";if(L==="menu")return `<div class="plist layout-menu">${list.map(menuRow).join("")}</div>`;if(L==="tags")return `<div class="plist layout-tags">${list.map(tagCard).join("")}</div>`;if(L==="table")return tableBlock(list,three?"fruit":"");return `<div class="grid ${three?"three":""}">${list.map(card).join("")}</div>`}
 function posStyle(k){const p=state.pos[k]||DEFAULT_POS[k];const fromRight=(k==="date"||k==="mega"||k==="hang");return fromRight?`right:${p.x}px;top:${p.y}px`:`left:${p.x}px;top:${p.y}px`}
