@@ -1,209 +1,53 @@
-const CATALOG = [
-  { id:"potato", name:"البطاطس", cat:"خضار", emoji:"🥔", bg:"#efebe9", img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=400&q=60" },
-  { id:"tomato", name:"الطماطم", cat:"خضار", emoji:"🍅", bg:"#ffebee", img:"https://images.unsplash.com/photo-1546470427-227e58ce36d4?auto=format&fit=crop&w=400&q=60" },
-  { id:"carrot", name:"الجزر", cat:"خضار", emoji:"🥕", bg:"#fff3e0", img:"https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=400&q=60" },
-  { id:"eggplant", name:"الباذنجان الأسود", cat:"خضار", emoji:"🍆", bg:"#f3e5f5", img:"https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=400&q=60" },
-  { id:"zucchini", name:"الكوسة", cat:"خضار", emoji:"🥒", bg:"#e8f5e9", img:"https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?auto=format&fit=crop&w=400&q=60" },
-  { id:"stuffed-egg", name:"الباذنجان الحشو", cat:"خضار", emoji:"🥒", bg:"#e8f5e9", img:"https://images.unsplash.com/photo-1597362920123-48e177247d84?auto=format&fit=crop&w=400&q=60" },
-  { id:"pepper", name:"الفلفل الرومي", cat:"خضار", emoji:"🫑", bg:"#e8f5e9", img:"https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=400&q=60" },
-  { id:"chili", name:"الفلفل الحامي", cat:"خضار", emoji:"🌶️", bg:"#ffebee" },
-  { id:"color-pep", name:"فلفل ألوان", cat:"خضار", emoji:"🫑", bg:"#fff8e1" },
-  { id:"cucumber", name:"الخيار", cat:"خضار", emoji:"🥒", bg:"#e8f5e9", img:"https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=400&q=60" },
-  { id:"lemon", name:"الليمون", cat:"خضار", emoji:"🍋", bg:"#fffde7", img:"https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&w=400&q=60" },
-  { id:"sweetpot", name:"البطاطا", cat:"خضار", emoji:"🍠", bg:"#fbe9e7", img:"https://images.unsplash.com/photo-1596097635121-14b63b7a0c23?auto=format&fit=crop&w=400&q=60" },
-  { id:"expot", name:"بطاطا تصدير", cat:"خضار", emoji:"🥔", bg:"#efebe9" },
-  { id:"onion-r", name:"البصل الأحمر", cat:"خضار", emoji:"🧅", bg:"#fce4ec" },
-  { id:"onion-w", name:"البصل الأبيض", cat:"خضار", emoji:"🧅", bg:"#eceff1" },
-  { id:"garlic", name:"الثوم", cat:"خضار", emoji:"🧄", bg:"#fafafa" },
-  { id:"cabbage", name:"الكرنب", cat:"خضار", emoji:"🥬", bg:"#e8f5e9" },
-  { id:"cauli", name:"القرنبيط", cat:"خضار", emoji:"🥦", bg:"#f1f8e9" },
-  { id:"broccoli", name:"البروكلي", cat:"خضار", emoji:"🥦", bg:"#e8f5e9" },
-  { id:"molokhia", name:"الملوخية", cat:"خضار", emoji:"🌿", bg:"#e8f5e9" },
-  { id:"spinach", name:"السبانخ", cat:"خضار", emoji:"🥬", bg:"#e8f5e9" },
-  { id:"lettuce", name:"الخس", cat:"خضار", emoji:"🥬", bg:"#f1f8e9" },
-  { id:"beans", name:"الفاصوليا", cat:"خضار", emoji:"🫜", bg:"#e8f5e9" },
-  { id:"peas", name:"البسلة", cat:"خضار", emoji:"🫜", bg:"#e8f5e9" },
-  { id:"okra", name:"البامية", cat:"خضار", emoji:"🌿", bg:"#e8f5e9" },
-  { id:"beet", name:"البنجر", cat:"خضار", emoji:"🟣", bg:"#f3e5f5" },
-  { id:"turnip", name:"اللفت", cat:"خضار", emoji:"⚪", bg:"#eceff1" },
-  { id:"radish", name:"الفجل", cat:"خضار", emoji:"🔴", bg:"#ffebee" },
-  { id:"corn", name:"الذرة", cat:"خضار", emoji:"🌽", bg:"#fffde7" },
-  { id:"parsley", name:"البقدونس", cat:"خضار", emoji:"🌿", bg:"#e8f5e9" },
-  { id:"dill", name:"الشبت", cat:"خضار", emoji:"🌿", bg:"#e8f5e9" },
-  { id:"coriander", name:"الكزبرة", cat:"خضار", emoji:"🌿", bg:"#e8f5e9" },
-  { id:"arugula", name:"الجرجير", cat:"خضار", emoji:"🥬", bg:"#e8f5e9" },
-  { id:"grapeleaf", name:"ورق العنب", cat:"خضار", emoji:"🍃", bg:"#e8f5e9" },
-  { id:"taro", name:"القلقاس", cat:"خضار", emoji:"🟤", bg:"#efebe9" },
-  { id:"pumpkin", name:"القرع", cat:"خضار", emoji:"🎃", bg:"#fff3e0" },
-  { id:"banana", name:"الموز", cat:"فاكهة", emoji:"🍌", bg:"#fffde7", img:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=400&q=60" },
-  { id:"grapes", name:"العنب", cat:"فاكهة", emoji:"🍇", bg:"#f3e5f5", img:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=400&q=60" },
-  { id:"mango", name:"المانجو", cat:"فاكهة", emoji:"🥭", bg:"#fff8e1", img:"https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=400&q=60" },
-  { id:"fig", name:"التين", cat:"فاكهة", emoji:"🟤", bg:"#efebe9", img:"https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?auto=format&fit=crop&w=400&q=60" },
-  { id:"prickly", name:"التين الشوكي", cat:"فاكهة", emoji:"🌵", bg:"#f1f8e9" },
-  { id:"apple", name:"التفاح", cat:"فاكهة", emoji:"🍎", bg:"#ffebee" },
-  { id:"orange", name:"البرتقال", cat:"فاكهة", emoji:"🍊", bg:"#fff3e0" },
-  { id:"mandarin", name:"اليوسفي", cat:"فاكهة", emoji:"🍊", bg:"#fff8e1" },
-  { id:"guava", name:"الجوافة", cat:"فاكهة", emoji:"🟢", bg:"#f1f8e9" },
-  { id:"strawberry", name:"الفراولة", cat:"فاكهة", emoji:"🍓", bg:"#ffebee" },
-  { id:"peach", name:"الخوخ", cat:"فاكهة", emoji:"🍑", bg:"#fbe9e7" },
-  { id:"apricot", name:"المشمش", cat:"فاكهة", emoji:"🟠", bg:"#fff3e0" },
-  { id:"pear", name:"الكمثرى", cat:"فاكهة", emoji:"🍐", bg:"#f1f8e9" },
-  { id:"pomegranate", name:"الرمان", cat:"فاكهة", emoji:"🔴", bg:"#fce4ec" },
-  { id:"watermelon", name:"البطيخ", cat:"فاكهة", emoji:"🍉", bg:"#e8f5e9" },
-  { id:"melon", name:"الشمام", cat:"فاكهة", emoji:"🍈", bg:"#f1f8e9" },
-  { id:"dates", name:"البلح / التمر", cat:"فاكهة", emoji:"🟤", bg:"#efebe9" },
-  { id:"pineapple", name:"الأناناس", cat:"فاكهة", emoji:"🍍", bg:"#fffde7" },
-  { id:"kiwi", name:"الكيوي", cat:"فاكهة", emoji:"🥝", bg:"#f1f8e9" },
-  { id:"avocado", name:"الأفوكادو", cat:"فاكهة", emoji:"🥑", bg:"#e8f5e9" },
-  { id:"chicken", name:"الفراخ", cat:"لحوم", emoji:"🐔", bg:"#fff3e0", img:"https://images.unsplash.com/photo-1587593810167-a849d81b07de?auto=format&fit=crop&w=400&q=60" },
-  { id:"baladi", name:"فراخ بلدي", cat:"لحوم", emoji:"🐓", bg:"#fff3e0" },
-  { id:"breast", name:"صدور فراخ", cat:"لحوم", emoji:"🍗", bg:"#fbe9e7" },
-  { id:"beef", name:"اللحم", cat:"لحوم", emoji:"🥩", bg:"#ffebee" },
-  { id:"liver", name:"الكبد", cat:"لحوم", emoji:"🟤", bg:"#efebe9" },
-  { id:"fish", name:"السمك", cat:"لحوم", emoji:"🐟", bg:"#e3f2fd" },
-  { id:"egg", name:"البيض", cat:"لحوم", emoji:"🥚", bg:"#fffde7" },
-  { id:"cheese", name:"الجبنة", cat:"بقالة", emoji:"🧀", bg:"#fffde7" },
-  { id:"milk", name:"اللبن", cat:"بقالة", emoji:"🥛", bg:"#eceff1" },
-  { id:"oil", name:"الزيت", cat:"بقالة", emoji:"🫙", bg:"#fff8e1" },
-  { id:"rice", name:"الأرز", cat:"بقالة", emoji:"🍚", bg:"#fafafa" },
-  { id:"sugar", name:"السكر", cat:"بقالة", emoji:"🧂", bg:"#fafafa" },
-  { id:"tea", name:"الشاي", cat:"بقالة", emoji:"🍵", bg:"#efebe9" }
-];
-
-const TEMPLATES = [
-  { id:"classic", name:"سوق الرابعة الكلاسيكي", desc:"اللافتة الخشبية والشريط الأحمر" },
-  { id:"souq", name:"سوق شعبي حار", desc:"ألوان نار وكرتون السوق" },
-  { id:"fresh", name:"طازج أخضر", desc:"مظهر خضار طازج" },
-  { id:"night", name:"ليلي فاخر", desc:"خلفية داكنة للإعلانات المسائية" },
-  { id:"minimal", name:"مينيمال أبيض", desc:"بسيط وواضح للطباعة" }
-];
-const BAR_COLORS = ["green","purple","orange","blue","brown"];
-function uid(){return Math.random().toString(36).slice(2,9);}
-function itemFrom(id,min,max,tag=""){
-  const c=CATALOG.find(x=>x.id===id)||{name:id,emoji:"🛒",bg:"#eee"};
-  return {key:uid(),catalogId:c.id||id,name:c.name,min,max,tag,emoji:c.emoji,bg:c.bg,img:c.img||""};
-}
-const DEFAULT_STATE=()=>({
-  template:"classic", titleSouq:"سوق", titleName:"الرابعة",
-  ribbon:"لمتابعين صفحة بورصة السادات", dateText:"اليوم",
-  circleText:"أكبر صفحة لأسعار السوق في مدينة السادات",
-  hangText:"متابعة يومية لأفضل الأسعار والعروض",
-  footerText:"بورصة السادات — متوسط أسعار سوق الرابعة · للتحديث اليومي تابع الصفحة",
-  activeSection:0,
-  sections:[
-    {title:"أسعار الخضروات",color:"green",cols:4,items:[
-      itemFrom("potato","15","20"),itemFrom("tomato","10","15"),itemFrom("carrot","10",""),itemFrom("stuffed-egg","10",""),
-      itemFrom("eggplant","10",""),itemFrom("pepper","10","15"),itemFrom("cucumber","10","15"),itemFrom("zucchini","20",""),
-      itemFrom("lemon","15","40"),itemFrom("sweetpot","15",""),itemFrom("expot","15","")
-    ]},
-    {title:"أسعار الفواكه واللحوم",color:"purple",cols:3,items:[
-      itemFrom("chicken","68","70"),itemFrom("banana","35",""),itemFrom("grapes","35","45"),
-      itemFrom("mango","40","50"),itemFrom("prickly","5",""),itemFrom("fig","40","")
-    ]}
-  ]
-});
-let state=DEFAULT_STATE(); let history=[]; const LS="souq-rabaa-v2";
-function snapshot(){history.push(JSON.stringify(state)); if(history.length>40) history.shift();}
-function undo(){ if(!history.length) return setStatus("لا يوجد تراجع"); state=JSON.parse(history.pop()); bindFields(); renderAll(); setStatus("تم التراجع"); }
-function load(){ try{ const raw=localStorage.getItem(LS); if(raw) state=Object.assign(DEFAULT_STATE(), JSON.parse(raw)); }catch(e){} bindFields(); renderAll(); }
-function saveData(){ collectFields(); localStorage.setItem(LS, JSON.stringify(state)); setStatus("تم الحفظ في المتصفح"); }
-function resetData(){ if(!confirm("إعادة ضبط كل شيء للقيمة الأصلية؟")) return; snapshot(); localStorage.removeItem(LS); state=DEFAULT_STATE(); bindFields(); renderAll(); setStatus("تمت إعادة الضبط"); }
-function bindFields(){
-  ["titleSouq","titleName","ribbon","dateText","circleText","hangText","footerText"].forEach(k=>{
-    const el=document.getElementById(k); el.value=state[k]||""; el.oninput=()=>{collectFields(); renderFlyer();};
-  });
-  const sel=document.getElementById("templateSel");
-  sel.innerHTML=TEMPLATES.map(t=>`<option value="${t.id}">${t.name}</option>`).join("");
-  sel.value=state.template; sel.onchange=()=>{snapshot(); state.template=sel.value; renderAll();};
-}
-function collectFields(){ ["titleSouq","titleName","ribbon","dateText","circleText","hangText","footerText"].forEach(k=>{ state[k]=document.getElementById(k).value; }); }
-function setStatus(t){ const el=document.getElementById("status"); el.textContent=t; setTimeout(()=>{ if(el.textContent===t) el.textContent=""; },2200); }
-function renderAll(){ renderTemplates(); renderCatalog(); renderSectionsEditor(); renderFlyer(); }
-function renderTemplates(){
-  document.getElementById("tplList").innerHTML=TEMPLATES.map(t=>`<div class="tpl ${state.template===t.id?"on":""}" onclick="chooseTpl('${t.id}')"><b>${t.name}</b><span class="hint">${t.desc}</span></div>`).join("");
-}
-function chooseTpl(id){ snapshot(); state.template=id; document.getElementById("templateSel").value=id; renderAll(); }
-let catFilter="الكل";
-function renderCatalog(){
-  const q=(document.getElementById("catSearch").value||"").trim();
-  const cats=["الكل",...new Set(CATALOG.map(c=>c.cat))];
-  document.getElementById("catFilters").innerHTML=cats.map(c=>`<button class="${catFilter===c?"on":""}" onclick="setCatFilter('${c}')">${c}</button>`).join("");
-  const list=CATALOG.filter(c=>(catFilter==="الكل"||c.cat===catFilter)&&(!q||c.name.includes(q)));
-  document.getElementById("catGrid").innerHTML=list.map(c=>`<div class="cat-card" draggable="true" ondragstart="dragCatalog(event,'${c.id}')" onclick="addFromCatalog('${c.id}')"><div class="emo">${c.emoji}</div>${c.name}</div>`).join("");
-}
-function setCatFilter(c){ catFilter=c; renderCatalog(); }
-document.getElementById("catSearch").addEventListener("input", renderCatalog);
-function addFromCatalog(id){ snapshot(); const i=state.activeSection>=0?state.activeSection:state.sections.length-1; state.sections[i].items.push(itemFrom(id,"10","")); renderAll(); setStatus("تمت إضافة "+(CATALOG.find(x=>x.id===id)||{}).name); }
-function dragCatalog(ev,id){ ev.dataTransfer.setData("text/plain","cat:"+id); }
-function renderSectionsEditor(){
-  document.getElementById("sectionsEditor").innerHTML=state.sections.map((s,si)=>`
-    <div class="sec-box" ${state.activeSection===si?'style="outline:2px solid #ff9800"':""} onclick="state.activeSection=${si};renderSectionsEditor()">
-      <div class="sec-head">
-        <input value="${esc(s.title)}" onchange="renameSection(${si}, this.value)" />
-        <select onchange="recolorSection(${si}, this.value)">${BAR_COLORS.map(c=>`<option ${s.color===c?"selected":""}>${c}</option>`).join("")}</select>
-        <select onchange="recolSection(${si}, this.value)">${[2,3,4,5].map(n=>`<option value="${n}" ${+s.cols===n?"selected":""}>${n}</option>`).join("")}</select>
-        <button class="btn-danger" onclick="event.stopPropagation();delSection(${si})">حذف القسم</button>
-      </div>
-      ${s.items.map((it,ii)=>`<div class="item-ed"><div class="row3">
-        <input value="${esc(it.name)}" onchange="editItem(${si},${ii},'name',this.value)" />
-        <input value="${esc(it.min)}" onchange="editItem(${si},${ii},'min',this.value)" />
-        <input value="${esc(it.max)}" onchange="editItem(${si},${ii},'max',this.value)" /></div>
-        <input placeholder="ملصق: عرض / جديد" value="${esc(it.tag||"")}" onchange="editItem(${si},${ii},'tag',this.value)" />
-        <div class="tools"><button class="btn-d" onclick="moveItem(${si},${ii},-1)">↑</button>
-        <button class="btn-d" onclick="moveItem(${si},${ii},1)">↓</button>
-        <button class="btn-danger" onclick="delItem(${si},${ii})">حذف</button></div></div>`).join("")}
-    </div>`).join("");
-}
-function esc(s){ return String(s??"").replace(/"/g,"""); }
-function renameSection(i,v){ snapshot(); state.sections[i].title=v; renderFlyer(); }
-function recolorSection(i,v){ snapshot(); state.sections[i].color=v; renderFlyer(); }
-function recolSection(i,v){ snapshot(); state.sections[i].cols=+v; renderFlyer(); }
-function addSection(){ snapshot(); state.sections.push({title:"قسم جديد",color:BAR_COLORS[state.sections.length%BAR_COLORS.length],cols:4,items:[]}); state.activeSection=state.sections.length-1; renderAll(); }
-function delSection(i){ if(!confirm("حذف القسم بالكامل؟")) return; snapshot(); state.sections.splice(i,1); state.activeSection=Math.max(0,i-1); renderAll(); }
-function editItem(si,ii,field,val){ snapshot(); state.sections[si].items[ii][field]=val; renderFlyer(); }
-function delItem(si,ii){ snapshot(); state.sections[si].items.splice(ii,1); renderAll(); }
-function moveItem(si,ii,dir){ const arr=state.sections[si].items; const nj=ii+dir; if(nj<0||nj>=arr.length) return; snapshot(); [arr[ii],arr[nj]]=[arr[nj],arr[ii]]; renderAll(); }
-function priceHTML(p){ if(p.max && String(p.max)!==String(p.min)) return `<span class="from">من</span><span class="num">${p.min}</span><span class="to">إلى ${p.max}</span><span class="unit">جنيه</span>`; return `<span class="num">${p.min||"—"}</span><span class="unit">جنيه</span>`; }
-function cardHTML(p,si,ii){
-  const img=p.img?`<img src="${p.img}" alt="" crossorigin="anonymous" onerror="this.style.display='none'" />`:"";
-  return `<article class="card" draggable="true" data-si="${si}" data-ii="${ii}" ondragstart="dragCard(event)" ondragover="allowDrop(event)" ondrop="dropCard(event)">${p.tag?`<span class="tag">${p.tag}</span>`:""}<h3>${p.name}</h3><div class="pic" style="background:${p.bg||"#f1f8e9"}">${img}<span>${p.emoji||"🛒"}</span></div><div class="price">${priceHTML(p)}</div></article>`;
-}
-function renderFlyer(){
-  const f=document.getElementById("flyer"); f.className="tpl-"+state.template;
-  f.innerHTML=`<div class="header"><div class="badge-today">${state.dateText}</div><div class="hang-left">${state.hangText}</div><div class="circle-right">${state.circleText}</div><div class="wood-sign"><div class="wood-plank"><div class="souq-word">${state.titleSouq}</div><div class="rabaa-word">${state.titleName}</div></div></div></div><div class="red-ribbon">${state.ribbon}</div>${state.sections.map((s,si)=>`<div class="bar ${s.color}" ondragover="allowDrop(event)" ondrop="dropOnSection(event,${si})">${s.title}</div><div class="grid cols-${s.cols}" data-si="${si}" ondragover="allowDrop(event)" ondrop="dropOnSection(event,${si})">${s.items.map((it,ii)=>cardHTML(it,si,ii)).join("")}</div>`).join("")}<div class="footer">${state.footerText}</div>`;
-}
-let dragSrc=null;
-function dragCard(ev){ const card=ev.target.closest(".card"); dragSrc={si:+card.dataset.si,ii:+card.dataset.ii}; ev.dataTransfer.setData("text/plain","card"); card.classList.add("dragging"); }
-function allowDrop(ev){ ev.preventDefault(); }
-function dropCard(ev){
-  ev.preventDefault(); ev.stopPropagation();
-  const card=ev.target.closest(".card"); const cat=ev.dataTransfer.getData("text/plain");
-  if(cat.startsWith("cat:")){ snapshot(); const id=cat.slice(4); const si=+card.dataset.si, ii=+card.dataset.ii; state.sections[si].items.splice(ii,0,itemFrom(id,"10","")); renderAll(); return; }
-  if(!dragSrc||!card) return; const tsi=+card.dataset.si, tii=+card.dataset.ii;
-  if(dragSrc.si===tsi && dragSrc.ii===tii) return;
-  snapshot(); const item=state.sections[dragSrc.si].items.splice(dragSrc.ii,1)[0];
-  const adj=(dragSrc.si===tsi && dragSrc.ii<tii)?tii-1:tii; state.sections[tsi].items.splice(adj,0,item); dragSrc=null; renderAll();
-}
-function dropOnSection(ev,si){
-  ev.preventDefault(); const cat=ev.dataTransfer.getData("text/plain");
-  if(cat.startsWith("cat:")){ snapshot(); state.sections[si].items.push(itemFrom(cat.slice(4),"10","")); state.activeSection=si; renderAll(); return; }
-  if(!dragSrc) return; if(ev.target.closest(".card")) return;
-  snapshot(); const item=state.sections[dragSrc.si].items.splice(dragSrc.ii,1)[0]; state.sections[si].items.push(item); dragSrc=null; renderAll();
-}
-function openCustomItem(){ document.getElementById("modal").classList.add("show"); }
-function closeModal(){ document.getElementById("modal").classList.remove("show"); }
-function confirmCustomItem(){
-  snapshot(); const name=document.getElementById("cName").value||"صنف جديد";
-  const min=document.getElementById("cMin").value; const max=document.getElementById("cMax").value;
-  const emoji=document.getElementById("cEmoji").value||"🛒"; const tag=document.getElementById("cTag").value;
-  const i=state.activeSection>=0?state.activeSection:0;
-  state.sections[i].items.push({key:uid(),name,min,max,emoji,tag,bg:"#fff8e1",img:""}); closeModal(); renderAll();
-}
-async function exportImage(){
-  collectFields(); renderFlyer(); setStatus("جارٍ تجهيز الصورة...");
-  try{
-    const canvas=await html2canvas(document.getElementById("flyer"),{scale:2,useCORS:true,allowTaint:true,backgroundColor:"#fff6d9",logging:false});
-    const a=document.createElement("a"); a.download="souq-rabaa-"+new Date().toISOString().slice(0,10)+".png"; a.href=canvas.toDataURL("image/png"); a.click(); setStatus("تم تنزيل الصورة");
-  }catch(e){ console.error(e); setStatus("تعذّر التصدير"); alert("تعذّر تصدير الصورة. جرّب كروم."); }
-}
+const TPLS=[{id:"classic",name:"الأصلي"},{id:"masry",name:"خشبي"},{id:"night",name:"ليلي"},{id:"farm",name:"مزرعة"},{id:"souq",name:"شعبي"},{id:"minimal",name:"مينيمال"}];
+const HEADER_SVG={};
+const PRICE_TPLS=[{id:"cards",name:"كروت الأسعار"},{id:"menu",name:"قائمة سوبرماركت"},{id:"tags",name:"ملصقات كبيرة"},{id:"table",name:"جدول أسعار"}];
+const DEFAULT_POS={date:{x:24,y:28},mega:{x:210,y:18},basket:{x:200,y:24},hang:{x:28,y:150},circle:{x:30,y:120},sign:{x:260,y:70}};
+const VEG=[{name:"البطاطس",min:"15",max:"20",emoji:"🥔"},{name:"الطماطم",min:"10",max:"15",emoji:"🍅"},{name:"الجزر",min:"10",max:"",emoji:"🥕"},{name:"الباذنجان الحشو",min:"10",max:"",emoji:"🥒"},{name:"الباذنجان الأسود",min:"10",max:"",emoji:"🍆"},{name:"الفلفل",min:"10",max:"15",emoji:"🫑"},{name:"الخيار",min:"10",max:"15",emoji:"🥒"},{name:"الكوسة",min:"20",max:"",emoji:"🥬"},{name:"الليمون",min:"15",max:"40",emoji:"🍋"},{name:"البطاطا (طين)",min:"15",max:"",emoji:"🍠"},{name:"بطاطا تصدير",min:"15",max:"",emoji:"🥔"}];
+const FRUIT=[{name:"الفراخ",min:"68",max:"70",emoji:"🐔"},{name:"الموز",min:"35",max:"",emoji:"🍌"},{name:"العنب",min:"35",max:"45",emoji:"🍇"},{name:"المانجو",min:"40",max:"50",emoji:"🥭"},{name:"التين الشوكي",min:"5",max:"",emoji:"🌵"},{name:"التين",min:"40",max:"",emoji:"🟤"}];
+function clone(o){return JSON.parse(JSON.stringify(o))}
+const DEFAULTS=()=>({template:"classic",priceLayout:"cards",titleSouq:"سوق",titleName:"الرابعة",ribbon:"لمتابعين صفحة بورصة السادات",footerText:"بورصة السادات — متوسط أسعار سوق الرابعة · للتحديث اليومي تابع الصفحة",dateText:"اليوم",circleText:"أكبر صفحة لأسعار السوق في مدينة السادات",hangText:"متابعة يومية لأفضل الأسعار والعروض",pos:clone(DEFAULT_POS),sections:[{title:"أسعار الخضروات",color:"green",items:clone(VEG)},{title:"أسعار الفواكه واللحوم",color:"purple",items:clone(FRUIT)}]});
+let state=DEFAULTS(),history=[];
+const LS="souq-rabaa-v7";
+function snap(){history.push(JSON.stringify(state));if(history.length>30)history.shift()}
+function undo(){if(!history.length)return setStatus("لا يوجد تراجع");state=JSON.parse(history.pop());bind();render();setStatus("تم التراجع")}
+function applyTplImages(){const I=window.TPL_IMGS||{};const rules=[];["masry","night","farm","souq","minimal"].forEach(k=>{if(I[k])rules.push('.tpl-'+k+' .header{background-image:url("'+I[k]+'")!important;background-size:cover;background-position:center}')});if(!rules.length)return;const s=document.createElement("style");s.textContent=rules.join("\n");document.head.appendChild(s)}
+function load(){applyTplImages();try{const r=localStorage.getItem(LS);if(r)state=Object.assign(DEFAULTS(),JSON.parse(r));if(!state.sections&&state.veg){state.sections=[{title:"أسعار الخضروات",color:"green",items:state.veg},{title:"أسعار الفواكه واللحوم",color:"purple",items:state.fruit}]}}catch(e){}bind();render()}
+function saveData(){collect();localStorage.setItem(LS,JSON.stringify(state));setStatus("تم الحفظ")}
+function resetData(){if(!confirm("الرجوع للقالب الأصلي؟"))return;snap();localStorage.removeItem(LS);state=DEFAULTS();bind();render();setStatus("تم الرجوع للأصل")}
+function setStatus(t){const el=document.getElementById("status");el.textContent=t;setTimeout(()=>{if(el.textContent===t)el.textContent=""},2000)}
+function bind(){["titleSouq","titleName","ribbon","footerText","dateText","circleText","hangText"].forEach(k=>{const el=document.getElementById(k);el.value=state[k]||"";el.oninput=()=>{collect();renderFlyer()}});
+const ht={classic:"#c48a4a",masry:"#8d6e63",night:"#0d1b2a",farm:"#2e7d32",souq:"#bf360c",minimal:"#ddd"};
+const pt={cards:"#ffecb3",menu:"#e8f5e9",tags:"#ffeb3b",table:"#eee"};
+const I=window.TPL_IMGS||{};
+document.getElementById("tpls").innerHTML=TPLS.map(t=>{const src=I[t.id];return `<div class="tpl ${state.template===t.id?"on":""}" onclick="chooseTpl('${t.id}')">${src?`<img src="${src}" alt="${t.name}">`:`<div class="thumb" style="background:${ht[t.id]}">${t.name}</div>`}<span>${t.name}</span></div>`}).join("");
+document.getElementById("priceTpls").innerHTML=PRICE_TPLS.map(t=>{const key=t.id==="cards"?"prices-cards":t.id==="menu"?"prices-menu":t.id==="tags"?"prices-tags":"";const src=key&&I[key];return `<div class="tpl ${state.priceLayout===t.id?"on":""}" onclick="choosePriceTpl('${t.id}')">${src?`<img src="${src}" alt="${t.name}">`:`<div class="thumb" style="background:${pt[t.id]}">${t.name}</div>`}<span>${t.name}</span></div>`}).join("")}
+function chooseTpl(id){snap();state.template=id;bind();renderFlyer()}
+function choosePriceTpl(id){snap();state.priceLayout=id;bind();renderFlyer()}
+function collect(){["titleSouq","titleName","ribbon","footerText","dateText","circleText","hangText"].forEach(k=>state[k]=document.getElementById(k).value);
+(state.sections||[]).forEach((sec,si)=>{const t=document.getElementById("s-t-"+si);if(t)sec.title=t.value;(sec.items||[]).forEach((p,i)=>{const n=document.getElementById(`s-${si}-n-${i}`);if(!n)return;p.name=n.value;p.min=document.getElementById(`s-${si}-min-${i}`).value;p.max=document.getElementById(`s-${si}-max-${i}`).value})})}
+function editors(){document.getElementById("sectionsEditor").innerHTML=(state.sections||[]).map((sec,si)=>`<div class="sec-box"><div class="sec-head"><input id="s-t-${si}" value="${sec.title||""}"/><button class="btn-d mini" onclick="removeSection(${si})">حذف القسم</button></div>${(sec.items||[]).map((p,i)=>`<div class="row3"><input id="s-${si}-n-${i}" value="${p.name||""}"/><input id="s-${si}-min-${i}" value="${p.min||""}"/><input id="s-${si}-max-${i}" value="${p.max||""}"/></div><div class="btns"><button class="btn-d mini" onclick="removeItem(${si},${i})">حذف الصنف</button></div>`).join("")}<button class="btn-ok mini" onclick="addItem(${si})">إضافة صنف</button></div>`).join("");
+document.querySelectorAll(".editor input").forEach(inp=>{if(["titleSouq","titleName","ribbon","footerText","dateText","circleText","hangText"].includes(inp.id))return;inp.addEventListener("input",()=>{collect();renderFlyer()})})}
+function addSection(){snap();collect();state.sections.push({title:"قسم جديد",color:"green",items:[{name:"صنف جديد",min:"10",max:"",emoji:"🛒"}]});render();setStatus("تمت إضافة قسم")}
+function removeSection(si){snap();collect();state.sections.splice(si,1);render();setStatus("تم حذف القسم")}
+function addItem(si){snap();collect();state.sections[si].items.push({name:"صنف جديد",min:"10",max:"",emoji:"🛒"});render();setStatus("تمت إضافة صنف")}
+function removeItem(si,i){snap();collect();state.sections[si].items.splice(i,1);render();setStatus("تم حذف الصنف")}
+function productImg(p){const src=(window.PRODUCT_IMGS||{})[p.name];if(src)return `<img src="${src}" alt="${p.name}">`;return `<span>${p.emoji||"🛒"}</span>`}
+function priceHTML(p){if(p.max&&p.max!==p.min)return `<span class="from">من</span><span class="num">${p.min}</span><span class="to">إلى ${p.max}</span><span class="unit">جنيه</span>`;return `<span class="num">${p.min}</span><span class="unit">جنيه</span>`}
+function card(p){return `<article class="card"><h3>${p.name}</h3><div class="pic">${productImg(p)}</div><div class="price">${priceHTML(p)}</div></article>`}
+function rangeText(p){return(p.max&&p.max!==p.min)?`${p.min}–${p.max}`:(p.min||"—")}
+function menuRow(p){return `<div class="menu-row"><div class="emo">${productImg(p)}</div><div class="nm">${p.name}</div><div class="pr">${rangeText(p)}<small>جنيه / كيلو</small></div></div>`}
+function tagCard(p){return `<div class="tag-card"><h3>${p.name}</h3><span class="emo">${productImg(p)}</span><div class="tag-price-wrap"><div class="tag-price">${rangeText(p)}<small>جنيه / كيلو</small></div></div></div>`}
+function tableBlock(list,cls){return `<table class="layout-table ${cls||""}"><thead><tr><th>الصنف</th><th>السعر</th></tr></thead><tbody>${list.map(p=>`<tr><td>${productImg(p)} ${p.name}</td><td class="pr">${rangeText(p)} جنيه</td></tr>`).join("")}</tbody></table>`}
+function pricesHTML(list,three){const L=state.priceLayout||"cards";if(L==="menu")return `<div class="plist layout-menu">${list.map(menuRow).join("")}</div>`;if(L==="tags")return `<div class="plist layout-tags">${list.map(tagCard).join("")}</div>`;if(L==="table")return tableBlock(list,three?"fruit":"");return `<div class="grid ${three?"three":""}">${list.map(card).join("")}</div>`}
+function headerPhotoHTML(){if(state.template==="classic")return"";const I=window.TPL_IMGS||{};const src=I[state.template];return src?`<img class="header-photo" src="${src}" alt="${state.template}">`:""}
+function headerSignHTML(){const t=state.template;const inner=`<div class="souq-word">${state.titleSouq}</div><div class="rabaa-word">${state.titleName}</div>`;if(t==="night")return `<div class="drag sign-night" data-k="sign" style="${posStyle("sign")}">${inner}</div>`;if(t==="farm")return `<div class="drag sign-farm" data-k="sign" style="${posStyle("sign")}">${inner}</div>`;if(t==="souq")return `<div class="drag sign-souq" data-k="sign" style="${posStyle("sign")}">${inner}</div>`;if(t==="minimal")return `<div class="drag sign-minimal" data-k="sign" style="${posStyle("sign")}">${inner}</div>`;return `<div class="drag wood-sign" data-k="sign" style="${posStyle("sign")}"><div class="wood-plank">${inner}</div></div>`}
+function posStyle(k){const p=state.pos[k]||DEFAULT_POS[k];const fromRight=(k==="date"||k==="mega"||k==="hang");return fromRight?`right:${p.x}px;top:${p.y}px`:`left:${p.x}px;top:${p.y}px`}
+function renderFlyer(){const f=document.getElementById("flyer");f.className="tpl-"+state.template;f.innerHTML=`<div class="header" id="headerZone">${headerPhotoHTML()}<div class="drag mega" data-k="mega" style="${posStyle("mega")}">📣</div><div class="drag badge-today" data-k="date" style="${posStyle("date")}">${state.dateText}</div><div class="drag basket" data-k="basket" style="${posStyle("basket")}">🫺🥗</div><div class="drag hang-left" data-k="hang" style="${posStyle("hang")}">${state.hangText}</div><div class="drag circle-right" data-k="circle" style="${posStyle("circle")}">${state.circleText}</div>${headerSignHTML()}</div><div class="red-ribbon">${state.ribbon}</div>${(state.sections||[]).map((sec,i)=>`<div class="bar ${sec.color==="purple"?"purple":"green"}">${sec.title||""}</div>${pricesHTML(sec.items||[],i>0&&(sec.items||[]).length<=6)}`).join("")}<div class="footer">${state.footerText||""}</div>`;bindDrag()}
+function render(){editors();renderFlyer()}
+let dragging=null,start=null,didSnap=false;
+function bindDrag(){document.querySelectorAll("#headerZone .drag").forEach(el=>el.addEventListener("pointerdown",onDown))}
+function onDown(e){const el=e.currentTarget;dragging=el;didSnap=false;el.classList.add("hold");const k=el.dataset.k;const p=state.pos[k];start={px:e.clientX,py:e.clientY,x:p.x,y:p.y,k};el.setPointerCapture(e.pointerId);window.addEventListener("pointermove",onMove);window.addEventListener("pointerup",onUp)}
+function onMove(e){if(!dragging||!start)return;if(!didSnap){snap();didSnap=true}const dx=e.clientX-start.px,dy=e.clientY-start.py;const fromRight=(start.k==="date"||start.k==="mega"||start.k==="hang");state.pos[start.k].x=Math.max(0,start.x+(fromRight?-dx:dx));state.pos[start.k].y=Math.max(0,start.y+dy);const p=state.pos[start.k];if(fromRight)dragging.style.right=p.x+"px";else dragging.style.left=p.x+"px";dragging.style.top=p.y+"px"}
+function onUp(){if(dragging)dragging.classList.remove("hold");dragging=null;start=null;window.removeEventListener("pointermove",onMove);window.removeEventListener("pointerup",onUp)}
+async function exportImage(){collect();renderFlyer();setStatus("جارٍ تجهيز الصورة...");try{const canvas=await html2canvas(document.getElementById("flyer"),{scale:2,useCORS:true,backgroundColor:"#fff6d9"});const a=document.createElement("a");a.download="souq-rabaa-"+new Date().toISOString().slice(0,10)+".png";a.href=canvas.toDataURL("image/png");a.click();setStatus("تم تنزيل الصورة")}catch(err){console.error(err);setStatus("تعذّر التصدير")}}
 load();
