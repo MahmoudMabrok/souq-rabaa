@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قالب سوق الرابعة — بورصة السادات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --wood: #8b5a2b;
+      --wood-dark: #5c3a1e;
+      --orange: #ff7a00;
+      --red: #e31c23;
+      --green: #2e7d32;
+      --green-light: #43a047;
+      --yellow: #ffd54f;
+      --cream: #fff8e7;
+      --purple: #6a1b9a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Cairo", "Tajawal", sans-serif;
+      background: #1a1a1a;
+      color: #222;
+      min-height: 100vh;
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      min-height: 100vh;
+    }
+    @media (max-width: 980px) {
+      .app { grid-template-columns: 1fr; }
+    }
+    .editor {
+      background: #141414;
+      color: #eee;
+      padding: 18px 16px 40px;
+      overflow-y: auto;
+      max-height: 100vh;
+      border-left: 1px solid #333;
+    }
+    .editor h1 { font-size: 18px; margin-bottom: 4px; color: #ffd54f; }
+    .editor p.hint { font-size: 12px; color: #aaa; margin-bottom: 16px; line-height: 1.6; }
+    .editor label { display: block; font-size: 12px; color: #bbb; margin: 10px 0 4px; }
+    .editor input[type="text"], .editor input[type="date"] {
+      width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #444;
+      background: #222; color: #fff; font-family: inherit; font-size: 14px;
+    }
+    .editor-row { display: grid; grid-template-columns: 1fr 70px 70px; gap: 6px; align-items: end; margin-bottom: 8px; }
+    .editor-row input { text-align: center; padding: 6px; }
+    .section-title { margin-top: 18px; padding: 6px 10px; background: #2e7d32; border-radius: 6px; font-size: 13px; font-weight: 800; }
+    .section-title.purple { background: #6a1b9a; }
+    .actions { position: sticky; bottom: 0; background: #141414; padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+    button { font-family: inherit; font-weight: 800; border: none; border-radius: 10px; padding: 12px; cursor: pointer; font-size: 15px; }
+    .btn-export { background: #ff7a00; color: #111; }
+    .btn-export:hover { background: #ff9800; }
+    .btn-save { background: #2e7d32; color: #fff; }
+    .btn-reset { background: #333; color: #ddd; }
+    .status { font-size: 12px; color: #8bc34a; min-height: 18px; text-align: center; }
+    .preview-wrap { padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; background: #2b2b2b; }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .toolbar button { padding: 10px 18px; }
+    #flyer {
+      width: 1080px; background: linear-gradient(#fff6d9, #ffe8b0); color: #222;
+      overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    .header {
+      position: relative; height: 420px;
+      background:
+        linear-gradient(180deg, rgba(255,236,179,.55) 0%, rgba(255,246,217,.2) 40%, #fff6d9 100%),
+        repeating-linear-gradient(90deg, #f9a82511 0 40px, #ef6c0011 40px 80px),
+        radial-gradient(circle at 80% 20%, #ffcc80, transparent 40%),
+        radial-gradient(circle at 10% 80%, #aed581, transparent 35%),
+        #ffecb3;
+    }
+    .header::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, #fff6d9 100%);
+    }
+    .badge-today {
+      position: absolute; top: 28px; right: 24px; z-index: 3;
+      background: #e31c23; color: #fff; font-weight: 900; font-size: 28px;
+      padding: 8px 22px 10px; border-radius: 8px 8px 8px 0; transform: rotate(-8deg);
+      box-shadow: 4px 6px 0 #8b0000;
+    }
+    .mega { position: absolute; top: 18px; right: 210px; z-index: 3; font-size: 54px; filter: drop-shadow(2px 4px 0 #0003); }
+    .wood-sign { position: absolute; z-index: 4; top: 70px; left: 50%; transform: translateX(-50%); width: 560px; text-align: center; }
+    .wood-plank {
+      background: linear-gradient(#c48a4a, #8b5a2b 40%, #6d4018); border: 6px solid #5c3a1e;
+      border-radius: 18px; padding: 10px 20px 22px; box-shadow: 0 14px 0 #3e2410, 0 18px 30px #0006; position: relative;
+    }
+    .wood-plank::before, .wood-plank::after { content: "\25CF"; position: absolute; top: 10px; color: #3e2410; font-size: 14px; }
+    .wood-plank::before { right: 16px; }
+    .wood-plank::after { left: 16px; }
+    .souq-word { font-size: 42px; font-weight: 900; color: #2e7d32; letter-spacing: 6px; text-shadow: 2px 2px 0 #fff, 0 4px 0 #1b5e20; line-height: 1; }
+    .rabaa-word { font-size: 92px; font-weight: 900; line-height: .85; color: #ff3d00; text-shadow: 3px 3px 0 #fff, 6px 8px 0 #b71c1c, 0 10px 18px #0005; }
+    .hang-left {
+      position: absolute; z-index: 4; top: 150px; right: 28px; width: 168px; background: #f3e0b8;
+      border: 4px solid #8b5a2b; border-radius: 8px; padding: 12px 10px; text-align: center;
+      font-weight: 800; font-size: 16px; line-height: 1.45; box-shadow: 0 8px 0 #5c3a1e;
+    }
+    .hang-left::before { content: ""; position: absolute; top: -28px; right: 50%; width: 4px; height: 28px; background: #5c3a1e; transform: translateX(50%); }
+    .circle-right {
+      position: absolute; z-index: 4; top: 120px; left: 30px; width: 176px; height: 176px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #ffe082); border: 6px solid #fff;
+      box-shadow: 0 8px 0 #c62828, 0 12px 20px #0004; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 16px; font-weight: 900; font-size: 16px; line-height: 1.4; color: #b71c1c;
+    }
+    .circle-right span { color: #e31c23; display: block; font-size: 15px; }
+    .red-ribbon {
+      position: relative; z-index: 5; margin: -36px auto 0; width: 78%;
+      background: linear-gradient(#ff1744, #c62828); color: #fff; text-align: center;
+      padding: 10px 20px 14px; font-size: 30px; font-weight: 900;
+      clip-path: polygon(3% 0, 97% 0, 100% 50%, 97% 100%, 3% 100%, 0 50%);
+      text-shadow: 0 3px 0 #7f0000;
+    }
+    .bar { margin: 14px 24px 10px; text-align: center; padding: 8px 16px; border-radius: 30px; color: #fff; font-weight: 900; font-size: 26px; }
+    .bar.green { background: linear-gradient(#66bb6a, #2e7d32); box-shadow: 0 4px 0 #1b5e20; }
+    .bar.purple { background: linear-gradient(#ab47bc, #6a1b9a); box-shadow: 0 4px 0 #4a148c; margin-top: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 8px 22px 18px; }
+    .grid.three { grid-template-columns: repeat(3, 1fr); }
+    .card { background: #fff; border: 3px solid #c8e6c9; border-radius: 16px; padding: 8px 8px 10px; text-align: center; position: relative; min-height: 168px; box-shadow: 0 3px 0 #a5d6a7; }
+    .card h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; color: #1b5e20; }
+    .card .pic { height: 88px; border-radius: 10px; background: linear-gradient(180deg, #f1f8e9, #fff); display: flex; align-items: center; justify-content: center; font-size: 58px; line-height: 1; }
+    .price { position: absolute; left: 8px; bottom: 8px; background: #ffd54f; border: 2px solid #f9a825; border-radius: 8px; min-width: 58px; padding: 2px 6px 4px; font-weight: 900; color: #b71c1c; line-height: 1.15; box-shadow: 2px 2px 0 #ef6c00; }
+    .price .from { font-size: 11px; color: #5d4037; font-weight: 700; display: block; }
+    .price .num { font-size: 22px; display: block; }
+    .price .to { font-size: 11px; color: #5d4037; }
+    .price .unit { font-size: 11px; color: #e65100; display: block; }
+    .footer { background: #5c3a1e; color: #ffe082; text-align: center; padding: 10px; font-weight: 700; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="editor">
+      <h1>قالب سوق الرابعة</h1>
+      <p class="hint">عدّل النصوص والأسعار ثم اضغط «تصدير كصورة». البيانات تُحفظ في المتصفح.</p>
+      <label>عنوان السوق</label>
+      <input id="titleSouq" type="text" value="سوق" />
+      <label>الاسم البارز</label>
+      <input id="titleName" type="text" value="الرابعة" />
+      <label>شريط المتابعين</label>
+      <input id="ribbon" type="text" value="لمتابعين صفحة بورصة السادات" />
+      <label>التاريخ الظاهر</label>
+      <input id="dateText" type="text" value="اليوم" />
+      <label>الدائرة اليمنى</label>
+      <input id="circleText" type="text" value="أكبر صفحة لأسعار السوق في مدينة السادات" />
+      <label>اللافتة اليسرى</label>
+      <input id="hangText" type="text" value="متابعة يومية لأفضل الأسعار والعروض" />
+      <div class="section-title">أسعار الخضروات</div>
+      <div id="vegEditor"></div>
+      <div class="section-title purple">أسعار الفواكه واللحوم</div>
+      <div id="fruitEditor"></div>
+      <div class="actions">
+        <div class="status" id="status"></div>
+        <button class="btn-export" onclick="exportImage()">⬇️ تصدير كصورة PNG</button>
+        <button class="btn-save" onclick="saveData()">💾 حفظ التعديلات</button>
+        <button class="btn-reset" onclick="resetData()">↻ استعادة الأسعار الأصلية</button>
+      </div>
+    </aside>
+    <div class="preview-wrap">
+      <div class="toolbar">
+        <button class="btn-export" onclick="exportImage()">تصدير الإعلان كصورة</button>
+      </div>
+      <div id="flyer">
+        <div class="header">
+          <div class="mega">📣</div>
+          <div class="badge-today" id="vDate">اليوم</div>
+          <div style="position:absolute;top:24px;left:210px;z-index:3;font-size:72px;filter:drop-shadow(0 6px 8px #0004);">🧺🥗</div>
+          <div class="hang-left" id="vHang">متابعة يومية لأفضل الأسعار والعروض</div>
+          <div class="circle-right" id="vCircle">أكبر صفحة<br/>لأسعار السوق<br/><span>في مدينة السادات</span></div>
+          <div class="wood-sign">
+            <div class="wood-plank">
+              <div class="souq-word" id="vSouq">سوق</div>
+              <div class="rabaa-word" id="vName">الرابعة</div>
+            </div>
+          </div>
+        </div>
+        <div class="red-ribbon" id="vRibbon">لمتابعين صفحة بورصة السادات</div>
+        <div class="bar green">أسعار الخضروات</div>
+        <div class="grid" id="vegGrid"></div>
+        <div class="bar purple">أسعار الفواكه واللحوم</div>
+        <div class="grid three" id="fruitGrid"></div>
+        <div class="footer">بورصة السادات — متوسط أسعار سوق الرابعة · للتحديث اليومي تابع الصفحة</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const DEFAULTS = {
+      titleSouq: "سوق",
+      titleName: "الرابعة",
+      ribbon: "لمتابعين صفحة بورصة السادات",
+      dateText: "اليوم",
+      circleText: "أكبر صفحة لأسعار السوق في مدينة السادات",
+      hangText: "متابعة يومية لأفضل الأسعار والعروض",
+      veg: [
+        { name: "البطاطس", min: "15", max: "20", emoji: "🥔" },
+        { name: "الطماطم", min: "10", max: "15", emoji: "🍅" },
+        { name: "الجزر", min: "10", max: "", emoji: "🥕" },
+        { name: "الباذنجان الحشو", min: "10", max: "", emoji: "🥒" },
+        { name: "الباذنجان الأسود", min: "10", max: "", emoji: "🍆" },
+        { name: "الفلفل", min: "10", max: "15", emoji: "🫑" },
+        { name: "الخيار", min: "10", max: "15", emoji: "🥒" },
+        { name: "الكوسة", min: "20", max: "", emoji: "🥬" },
+        { name: "الليمون", min: "15", max: "40", emoji: "🍋" },
+        { name: "البطاطا (طين)", min: "15", max: "", emoji: "🍠" },
+        { name: "بطاطا تصدير", min: "15", max: "", emoji: "🥔" }
+      ],
+      fruit: [
+        { name: "الفراخ", min: "68", max: "70", emoji: "🐔" },
+        { name: "الموز", min: "35", max: "", emoji: "🍌" },
+        { name: "العنب", min: "35", max: "45", emoji: "🍇" },
+        { name: "المانجو", min: "40", max: "50", emoji: "🥭" },
+        { name: "التين الشوكي", min: "5", max: "", emoji: "🌵" },
+        { name: "التين", min: "40", max: "", emoji: "🟤" }
+      ]
+    };
+    let state = JSON.parse(JSON.stringify(DEFAULTS));
+    function load() {
+      try {
+        const raw = localStorage.getItem("souq-rabaa-v1");
+        if (raw) state = Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), JSON.parse(raw));
+      } catch (e) {}
+      document.getElementById("titleSouq").value = state.titleSouq;
+      document.getElementById("titleName").value = state.titleName;
+      document.getElementById("ribbon").value = state.ribbon;
+      document.getElementById("dateText").value = state.dateText;
+      document.getElementById("circleText").value = state.circleText;
+      document.getElementById("hangText").value = state.hangText;
+      buildEditors();
+      renderFlyer();
+    }
+    function collect() {
+      state.titleSouq = document.getElementById("titleSouq").value;
+      state.titleName = document.getElementById("titleName").value;
+      state.ribbon = document.getElementById("ribbon").value;
+      state.dateText = document.getElementById("dateText").value;
+      state.circleText = document.getElementById("circleText").value;
+      state.hangText = document.getElementById("hangText").value;
+      state.veg.forEach((p, i) => {
+        p.name = document.getElementById("veg-n-" + i).value;
+        p.min = document.getElementById("veg-min-" + i).value;
+        p.max = document.getElementById("veg-max-" + i).value;
+      });
+      state.fruit.forEach((p, i) => {
+        p.name = document.getElementById("fr-n-" + i).value;
+        p.min = document.getElementById("fr-min-" + i).value;
+        p.max = document.getElementById("fr-max-" + i).value;
+      });
+    }
+    function saveData() {
+      collect();
+      localStorage.setItem("souq-rabaa-v1", JSON.stringify(state));
+      renderFlyer();
+      setStatus("تم الحفظ");
+    }
+    function resetData() {
+      if (!confirm("استعادة الأسعار والنصوص الأصلية؟")) return;
+      localStorage.removeItem("souq-rabaa-v1");
+      state = JSON.parse(JSON.stringify(DEFAULTS));
+      load();
+      setStatus("تمت الاستعادة");
+    }
+    function setStatus(t) {
+      const el = document.getElementById("status");
+      el.textContent = t;
+      setTimeout(() => { if (el.textContent === t) el.textContent = ""; }, 2500);
+    }
+    function priceHTML(p) {
+      if (p.max && p.max !== p.min) {
+        return `<span class="from">من</span><span class="num">${p.min}</span><span class="to">إلى ${p.max}</span><span class="unit">جنيه</span>`;
+      }
+      return `<span class="num">${p.min}</span><span class="unit">جنيه</span>`;
+    }
+    function cardHTML(p) {
+      return `<article class="card"><h3>${p.name}</h3><div class="pic">${p.emoji || "🛒"}</div><div class="price">${priceHTML(p)}</div></article>`;
+    }
+    function editorRows(list, prefix, mountId) {
+      document.getElementById(mountId).innerHTML = list.map((p, i) => `
+        <div class="editor-row">
+          <input id="${prefix}-n-${i}" type="text" value="${p.name}" />
+          <input id="${prefix}-min-${i}" type="text" value="${p.min}" title="من" />
+          <input id="${prefix}-max-${i}" type="text" value="${p.max}" title="إلى" />
+        </div>`).join("");
+    }
+    function buildEditors() {
+      editorRows(state.veg, "veg", "vegEditor");
+      editorRows(state.fruit, "fr", "fruitEditor");
+      document.querySelectorAll(".editor input").forEach(inp => {
+        inp.addEventListener("input", () => { collect(); renderFlyer(); });
+      });
+    }
+    function renderFlyer() {
+      document.getElementById("vSouq").textContent = state.titleSouq;
+      document.getElementById("vName").textContent = state.titleName;
+      document.getElementById("vRibbon").textContent = state.ribbon;
+      document.getElementById("vDate").textContent = state.dateText;
+      document.getElementById("vHang").textContent = state.hangText;
+      document.getElementById("vCircle").innerHTML = state.circleText.replace(/في مدينة/, "<span>في مدينة") + (state.circleText.includes("في مدينة") ? "</span>" : "");
+      document.getElementById("vegGrid").innerHTML = state.veg.map(cardHTML).join("");
+      document.getElementById("fruitGrid").innerHTML = state.fruit.map(cardHTML).join("");
+    }
+    async function exportImage() {
+      collect(); renderFlyer(); setStatus("جارٍ تجهيز الصورة...");
+      try {
+        const canvas = await html2canvas(document.getElementById("flyer"), { scale: 2, useCORS: true, backgroundColor: "#fff6d9", logging: false });
+        const a = document.createElement("a");
+        a.download = "souq-rabaa-" + new Date().toISOString().slice(0,10) + ".png";
+        a.href = canvas.toDataURL("image/png");
+        a.click();
+        setStatus("تم تنزيل الصورة");
+      } catch (err) {
+        console.error(err);
+        setStatus("تعذّر التصدير");
+        alert("تعذّر تصدير الصورة. جرّب متصفح كروم.");
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
